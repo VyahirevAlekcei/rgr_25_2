@@ -13,6 +13,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+//import Calculator.CreatePDF;
+//import Calculator.buttonPDF;
+
 
 
 
@@ -20,13 +23,16 @@ import javax.swing.JTextField;
 public final class Panel extends JPanel {
 
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private double S;
 	private double P;
 	private double M;
+	private double Percent =2;
+	private double A;
+	
+	private JButton CreatePDF;
+	//private JButton buttonPDF;
 	
 	//ЛЕЙБЛЫ
 	JLabel FirstLabel = new JLabel("Общая сумма кредита");
@@ -42,9 +48,23 @@ public final class Panel extends JPanel {
 		
 		
 		setLayout(null);
+		setBackground(Color.WHITE);
 		// ШРИФТЫ
 		Font shrift = new Font ("TimesRoman", Font.BOLD, 14);
 		Font shrift1 = new Font ("TimesRoman", Font.BOLD, 16);
+		
+		 
+		CreatePDF = new buttonPDF();
+		 CreatePDF.setFont(shrift);
+		 CreatePDF.addActionListener(new ActionListener() {
+	            @Override
+	            public void actionPerformed(ActionEvent e) {
+	            	Percent = Double.parseDouble(ThirdLabel.getText());
+	                new CreatePDF(getS(),Percent,getM(),getP(),getResult());
+	            }
+		 });
+		 add (CreatePDF);
+		
 		
 	    //ПРИВЕТСТВИЕ
 	    final JLabel Hello = new JLabel("Добро пожаловать в ипотечный калькулятор для юридических лиц!");
@@ -101,7 +121,7 @@ public final class Panel extends JPanel {
 			}
         });
 		
-		//ГОДОВАЯ СТАВКА
+		//ГОДОВАЯ СТАВКА %
 		add(ThirdLabel);
 		ThirdLabel.setBounds(20, 160, 260, 20);
 		ThirdLabel.setVisible(true);
@@ -123,6 +143,8 @@ public final class Panel extends JPanel {
 			}
 			public void keyReleased(KeyEvent e) {	
 			}
+			
+			
         });
 		
 	    //ЕЖЕМЕСЯЧНЫЙ ВЗНОС
@@ -151,7 +173,11 @@ public final class Panel extends JPanel {
 		SeventhLabel.setForeground(Color.BLACK);
 		//ИНФОРМАЦИЯ
 		JButton Information = new JButton("Информация");
-		Information.setBounds(20, 300, 120, 30);
+	
+		Information.setBackground(Color.WHITE);
+		Information.setForeground(Color.BLACK);
+		Information.setFont(shrift);
+		Information.setBounds(20, 300, 170, 30);
 		add(Information);
 		Information.setVisible(true);
 		
@@ -160,7 +186,7 @@ public final class Panel extends JPanel {
 		
 		class Raschet extends Main implements ActionListener {
 
-			private double A;
+			
 
 			public void actionPerformed(ActionEvent e) {	
 				String S_stroka = FirstField.getText();
@@ -186,21 +212,28 @@ public final class Panel extends JPanel {
 				}
 				DecimalFormat df = new DecimalFormat("###.##");
 				FifthLabel.setText(df.format(getResult())+"   руб.");
+				  
 			}
 			
 		}
 		
 		JButton Calculated = new JButton("Расчитать");
-		Calculated.setBounds(160, 300, 120, 30);
+		Calculated.setBounds(197, 300, 120, 30);
+		Calculated.setBackground(Color.WHITE);
+		Calculated.setForeground(Color.BLACK);
+		Calculated.setFont(shrift);
 		add(Calculated);
 		Calculated.setVisible(true);
 		ActionListener Calculat = new Raschet();
 		Calculated.addActionListener(Calculat);
 		
 		JButton Exit = new JButton("Выход");
-		Exit.setBounds(460, 300, 100, 30);
+		Exit.setBounds(510, 300, 100, 30);
 		add(Exit);
 		Exit.setVisible(true);
+		Exit.setBackground(Color.WHITE);
+        Exit.setForeground(Color.BLACK);
+        Exit.setFont(shrift);
 		ActionListener ExitListener = new ExitButton();
 		Exit.addActionListener(ExitListener);
 		
@@ -219,7 +252,11 @@ public final class Panel extends JPanel {
     	this.P = P;
     	
     }
+    public void setPercent(double Percent) {
+    	this.Percent = Percent;
+    }
     public double getP() {
+    	
     	return P;
     }	    
 
@@ -229,7 +266,12 @@ public final class Panel extends JPanel {
 
     public double getM() {
     	return M;
-    }
+   }
+    public double getPercent() {
+		return Percent;
+    	
+    }	
+
     public double getResult() {            
         if (getM() == 0) {
         	SeventhLabel.setText("Введите корректные значения");
@@ -245,5 +287,7 @@ public final class Panel extends JPanel {
     }
 
 
-	
+
 }
+
+	
