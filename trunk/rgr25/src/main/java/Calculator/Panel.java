@@ -13,8 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-//import Calculator.CreatePDF;
-//import Calculator.buttonPDF;
+
 
 
 
@@ -28,11 +27,9 @@ public final class Panel extends JPanel {
 	private double S;
 	private double P;
 	private double M;
-	private double Percent =2;
 	private double A;
 	
 	private JButton CreatePDF;
-	//private JButton buttonPDF;
 	
 	//ЛЕЙБЛЫ
 	JLabel FirstLabel = new JLabel("Общая сумма кредита");
@@ -59,8 +56,7 @@ public final class Panel extends JPanel {
 		 CreatePDF.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	            	Percent = Double.parseDouble(ThirdLabel.getText());
-	                new CreatePDF(getS(),Percent,getM(),getP(),getResult());
+	                new CreatePDF(getS(),getP(),getM(),getResult());
 	            }
 		 });
 		 add (CreatePDF);
@@ -190,16 +186,13 @@ public final class Panel extends JPanel {
 
 			public void actionPerformed(ActionEvent e) {	
 				String S_stroka = FirstField.getText();
-				//Integer S = Integer.parseInt(S_stroka);
 				String M_stroka = SecondField.getText();
-				//Integer M = Integer.parseInt(M_stroka);
 				String P_stroka = ThirdField.getText();
-				//float P = Integer.parseInt(P_stroka);
 				try {
 					S = Integer.parseInt(S_stroka);
 					M = Integer.parseInt(M_stroka);
 					P = Integer.parseInt(P_stroka);
-					P = (double) P / 1200;
+					P = (Double) P / 1200;
 					 A = S * P / ( 1 - Math.pow(1 + P, -M));
 					 A = Math.ceil(A);
 					 double H = A * M;
@@ -252,9 +245,6 @@ public final class Panel extends JPanel {
     	this.P = P;
     	
     }
-    public void setPercent(double Percent) {
-    	this.Percent = Percent;
-    }
     public double getP() {
     	
     	return P;
@@ -267,17 +257,11 @@ public final class Panel extends JPanel {
     public double getM() {
     	return M;
    }
-    public double getPercent() {
-		return Percent;
-    	
-    }	
 
     public double getResult() {            
         if (getM() == 0) {
         	SeventhLabel.setText("Введите корректные значения");
         	SeventhLabel.setForeground(Color.RED);
-        	//System.out.println("");
-        	//JOptionPane.showMessageDialog(null,"Введите корректные значения");
         	return 0;
         } else if (getP() > getS()) {
         	JOptionPane.showMessageDialog(null,"");
@@ -289,5 +273,3 @@ public final class Panel extends JPanel {
 
 
 }
-
-	
